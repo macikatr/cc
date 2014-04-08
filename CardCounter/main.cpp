@@ -41,7 +41,15 @@ bool operator!=(Card A, Card B)
 bool operator==(Board A, Board B)
 { // Don't need to check if all the cards are the same, only the player's hand and lasthand
 	//bool sameHand = (A.PlayerHand == B.PlayerHand);
-	bool sameHand = (equal(A.PlayerHand.begin(), A.PlayerHand.end(), B.PlayerHand.begin()));
+	bool sameHand = true;
+	if (A.PlayerHand.size() != B.PlayerHand.size())
+	{
+		sameHand = false;
+	}
+	else
+	{
+		sameHand = (equal(A.PlayerHand.begin(), A.PlayerHand.end(), B.PlayerHand.begin()));
+	}
 //	bool sameTrick = (A.LastHand == B.LastHand);
 	bool sameTrick = true;
 	for (int k = 0; k < 4; k++)
@@ -76,14 +84,20 @@ void BOT()
 	}
 	string g;
 	getline(cin, g);
+	cout << "Searching for Board" << endl;
 	auto gameStatus = Board();
 	while (true)
 	{
-		if (g == "r")
-		{ // reset
-			cout << "Resetting Board";
-			gameStatus = Board();
-			Sleep(10);
+		if (gameStatus.PlayerHand.size() == 0 && gameStatus.CardsInPlay.size() <= 4)
+		{
+			cout << "Hand might be over. Reset (press r and ENTER)?" << endl;
+			getline(cin, g);
+			if (g.size()!=0 && tolower(g[0]) == 'r')
+			{ // reset
+				cout << "Resetting Board...";
+				gameStatus = Board();
+				Sleep(10);
+			}
 		}
 		auto nextStatus = Board(false);
 		if (nextStatus == gameStatus)

@@ -29,7 +29,7 @@ public:
 		lpvBITBUF = new LPVOID;
 		bmpBuffer = (BYTE*)GlobalAlloc(GPTR, SCREENWIDTH*SCREENHEIGHT * 4);
 		GetBitmapBits(Teemo, numBits, bmpBuffer);
-		SaveToFile(Teemo, L"images\\Teemo.bmp");
+		//SaveToFile(Teemo, L"images\\Teemo.bmp");
 	}
 	~ScreenShot()
 	{
